@@ -18,6 +18,12 @@ app.use(express.urlencoded({ extended: true }));
 // Swagger Documentation UI Route
 app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerSpec));
 
+// Raw OpenAPI/Swagger JSON endpoint
+app.get('/api-docs.json', (req, res) => {
+  res.setHeader('Content-Type', 'application/json');
+  res.send(swaggerSpec);
+});
+
 // Mount application API routes
 app.use('/api', routes);
 

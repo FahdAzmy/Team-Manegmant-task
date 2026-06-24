@@ -18,10 +18,7 @@ const router = (0, express_1.Router)();
  *         application/json:
  *           schema:
  *             type: object
- *             required:
- *               - name
- *               - email
- *               - password
+ *             required: [name, email, password]
  *             properties:
  *               name:
  *                 type: string
@@ -36,14 +33,13 @@ const router = (0, express_1.Router)();
  *                 example: securePassword123
  *               role:
  *                 type: string
+ *                 enum: [admin, member]
  *                 example: member
  *     responses:
  *       201:
- *         description: User registered successfully
+ *         description: User registered successfully, refresh token set in HTTP-only cookie
  *       400:
  *         description: Bad request or user already exists
- *       500:
- *         description: Internal server error
  */
 router.post('/register', (0, validation_middleware_1.validate)(auth_validation_1.registerSchema), auth_controller_1.register);
 /**
@@ -58,9 +54,7 @@ router.post('/register', (0, validation_middleware_1.validate)(auth_validation_1
  *         application/json:
  *           schema:
  *             type: object
- *             required:
- *               - email
- *               - password
+ *             required: [email, password]
  *             properties:
  *               email:
  *                 type: string
@@ -72,13 +66,41 @@ router.post('/register', (0, validation_middleware_1.validate)(auth_validation_1
  *                 example: securePassword123
  *     responses:
  *       200:
- *         description: Login successful
+ *         description: Login successful, refresh token set in HTTP-only cookie
  *       401:
  *         description: Invalid credentials
- *       500:
- *         description: Internal server error
  */
 router.post('/login', (0, validation_middleware_1.validate)(auth_validation_1.loginSchema), auth_controller_1.login);
+/**
+ * @openapi
+ * /api/auth/refresh:
+ *   post:
+ *     summary: Get new access token using refresh token stored in cookie
+ *     tags: [Authentication]
+ *     responses:
+ *       200:
+ *         description: Returns new access token; rotates refresh token cookie
+ *       401:
+ *         description: Refresh token cookie not found
+ *       403:
+ *         description: Invalid or expired refresh token
+ */
+router.post('/refresh', auth_controller_1.refresh);
+/**
+ * @openapi
+ * /api/auth/logout:
+ *   post:
+ *     summary: Logout and clear refresh token cookie
+ *     tags: [Authentication]
+ *     security:
+ *       - bearerAuth: []
+ *     responses:
+ *       200:
+ *         description: Logout successful, cookie cleared
+ *       401:
+ *         description: Unauthorized
+ */
+router.post('/logout', auth_middleware_1.authenticateJWT, auth_controller_1.logout);
 /**
  * @openapi
  * /api/auth/me:
@@ -92,10 +114,6 @@ router.post('/login', (0, validation_middleware_1.validate)(auth_validation_1.lo
  *         description: User profile retrieved successfully
  *       401:
  *         description: Unauthorized
- *       403:
- *         description: Invalid/expired token
- *       500:
- *         description: Internal server error
  */
 router.get('/me', auth_middleware_1.authenticateJWT, auth_controller_1.getMe);
 exports.default = router;

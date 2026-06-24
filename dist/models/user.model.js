@@ -8,13 +8,6 @@ const sequelize_1 = require("sequelize");
 const bcryptjs_1 = __importDefault(require("bcryptjs"));
 const database_1 = require("../config/database");
 class User extends sequelize_1.Model {
-    id;
-    name;
-    email;
-    password;
-    role;
-    createdAt;
-    updatedAt;
     // Custom method to validate password
     async validatePassword(password) {
         return bcryptjs_1.default.compare(password, this.password);
@@ -44,9 +37,13 @@ User.init({
         allowNull: false,
     },
     role: {
-        type: sequelize_1.DataTypes.STRING,
+        type: sequelize_1.DataTypes.ENUM('admin', 'member'),
         allowNull: false,
-        defaultValue: 'member', // e.g., admin, manager, member
+        defaultValue: 'member',
+    },
+    refreshToken: {
+        type: sequelize_1.DataTypes.TEXT,
+        allowNull: true,
     },
 }, {
     sequelize: database_1.sequelize,

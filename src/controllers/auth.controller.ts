@@ -1,34 +1,14 @@
 import { Request, Response } from 'express';
 import jwt from 'jsonwebtoken';
-import crypto from 'crypto';
 import { UserService } from '../services/user.service';
 import { AuthenticatedRequest } from '../middleware/auth.middleware';
 import { asyncHandler } from '../middleware/async.middleware';
 import { ApiError } from '../utils/ApiError';
+import { generateAccessToken, generateRefreshToken, COOKIE_OPTIONS } from '../utils/tokenHelpers';
 
-// ─── Token Generators ─────────────────────────────────────────────────────────
-
-const generateAccessToken = (id: string, email: string, role: string): string => {
-  const jwtSecret = process.env.JWT_SECRET || 'super-secret-jwt-key-replace-in-production';
-  const expiresIn = process.env.JWT_EXPIRES_IN || '15m';
-  return jwt.sign({ id, email, role }, jwtSecret, { expiresIn: expiresIn as any });
-};
-
-const generateRefreshToken = (id: string, email: string): string => {
-  const jwtRefreshSecret = process.env.JWT_REFRESH_SECRET || 'super-secret-refresh-key-replace-in-production';
-  const expiresIn = process.env.JWT_REFRESH_EXPIRES_IN || '7d';
-  return jwt.sign({ id, email, tokenId: crypto.randomUUID() }, jwtRefreshSecret, { expiresIn: expiresIn as any });
-};
-
-const COOKIE_OPTIONS = {
-  httpOnly: true,
-  secure: process.env.NODE_ENV === 'production',
-  sameSite: 'strict' as const,
-  maxAge: 7 * 24 * 60 * 60 * 1000, // 7 days in ms
-};
-
-// ─── Controllers ─────────────────────────────────────────────────────────────
-
+// @desc Register user
+// @route post /api/auth/register
+// @acces public
 export const register = asyncHandler(async (req: Request, res: Response): Promise<void> => {
   const { name, email, password, role } = req.body;
 
@@ -68,6 +48,9 @@ export const register = asyncHandler(async (req: Request, res: Response): Promis
   });
 });
 
+// @desc Login user
+// @route post /api/auth/login
+// @acces public
 export const login = asyncHandler(async (req: Request, res: Response): Promise<void> => {
   const { email, password } = req.body;
 
@@ -105,6 +88,9 @@ export const login = asyncHandler(async (req: Request, res: Response): Promise<v
   });
 });
 
+// @desc Refresh access token
+// @route post /api/auth/refresh
+// @acces public
 export const refresh = asyncHandler(async (req: Request, res: Response): Promise<void> => {
   // Read refresh token from HTTP-only cookie (not request body)
   const refreshToken = req.cookies?.refreshToken;
@@ -139,6 +125,9 @@ export const refresh = asyncHandler(async (req: Request, res: Response): Promise
   res.status(200).json({ accessToken: newAccessToken });
 });
 
+// @desc Logout user
+// @route post /api/auth/logout
+// @acces private
 export const logout = asyncHandler(async (req: AuthenticatedRequest, res: Response): Promise<void> => {
   if (!req.user) {
     throw ApiError.unauthorized('Not authenticated');
@@ -152,6 +141,9 @@ export const logout = asyncHandler(async (req: AuthenticatedRequest, res: Respon
   res.status(200).json({ message: 'Logout successful' });
 });
 
+// @desc Get current user profile
+// @route get /api/auth/me
+// @acces private
 export const getMe = asyncHandler(async (req: AuthenticatedRequest, res: Response): Promise<void> => {
   if (!req.user) {
     throw ApiError.unauthorized('Not authenticated');

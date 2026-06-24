@@ -1,0 +1,602 @@
+{
+  "info": {
+    "_postman_id": "9b6a7920-5f20-42e8-9297-7a2f3b015764",
+    "name": "Team Managment",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "_exporter_id": "31103946"
+  },
+  "item": [
+    {
+      "name": "auth",
+      "item": [
+        {
+          "name": "Login",
+          "request": {
+            "method": "POST",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n      \"email\":\"azmyfahd@gmail.com\",\r\n    \"password\":\"0111410960\"\r\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "http://localhost:3000/api/auth/login",
+              "protocol": "http",
+              "host": [
+                "localhost"
+              ],
+              "port": "3000",
+              "path": [
+                "api",
+                "auth",
+                "login"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Signup",
+          "request": {
+            "method": "POST",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n    \"name\":\"fahd\",\r\n    \"email\":\"azmyfahd@gmail.com\",\r\n    \"password\":\"0111410960\",\r\n    \"role\":\"admin\"\r\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "http://localhost:3000/api/auth/register",
+              "protocol": "http",
+              "host": [
+                "localhost"
+              ],
+              "port": "3000",
+              "path": [
+                "api",
+                "auth",
+                "register"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Refresh token",
+          "request": {
+            "method": "POST",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n    \"name\":\"fahd\",\r\n    \"email\":\"azmyfahd@gmail.com\",\r\n    \"password\":\"0111410960\",\r\n    \"role\":\"admin\"\r\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "http://localhost:3000/api/auth/refresh",
+              "protocol": "http",
+              "host": [
+                "localhost"
+              ],
+              "port": "3000",
+              "path": [
+                "api",
+                "auth",
+                "refresh"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "logout",
+          "request": {
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6ImU5MzJlYjc3LWE3YjktNDNkYy1iNGM0LWNiYjU1NmFhODcxMCIsImVtYWlsIjoiYXpteUBnbWFpbC5jb20iLCJyb2xlIjoibWVtYmVyIiwiaWF0IjoxNzgyMzE2NzEzLCJleHAiOjE3ODIzMTc2MTN9.FHqBZOwAGj5hodrdlourVZu3ofxgz1tzs4JDZOoVstA",
+                  "type": "string"
+                }
+              ]
+            },
+            "method": "POST",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n    \"name\":\"fahd\",\r\n    \"email\":\"azmyfahd@gmail.com\",\r\n    \"password\":\"0111410960\",\r\n    \"role\":\"admin\"\r\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "http://localhost:3000/api/auth/logout",
+              "protocol": "http",
+              "host": [
+                "localhost"
+              ],
+              "port": "3000",
+              "path": [
+                "api",
+                "auth",
+                "logout"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "getme",
+          "request": {
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6ImU5MzJlYjc3LWE3YjktNDNkYy1iNGM0LWNiYjU1NmFhODcxMCIsImVtYWlsIjoiYXpteUBnbWFpbC5jb20iLCJyb2xlIjoibWVtYmVyIiwiaWF0IjoxNzgyMzE2NzEzLCJleHAiOjE3ODIzMTc2MTN9.FHqBZOwAGj5hodrdlourVZu3ofxgz1tzs4JDZOoVstA",
+                  "type": "string"
+                }
+              ]
+            },
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "http://localhost:3000/api/auth/me",
+              "protocol": "http",
+              "host": [
+                "localhost"
+              ],
+              "port": "3000",
+              "path": [
+                "api",
+                "auth",
+                "me"
+              ]
+            }
+          },
+          "response": []
+        }
+      ]
+    },
+    {
+      "name": "Project",
+      "item": [
+        {
+          "name": "Create Project",
+          "request": {
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjI3YmRhY2E3LWRlMDUtNGQ1Ni04YjQ0LWU3MWJhMDNjMTI1NiIsImVtYWlsIjoiYXpteWZhaGRAZ21haWwuY29tIiwicm9sZSI6ImFkbWluIiwiaWF0IjoxNzgyMzEyNDE4LCJleHAiOjE3ODIzOTg4MTh9.8--q_lpgTEL-m2cadV9ZZjKxuP_qj8b9-nQKOMp443s",
+                  "type": "string"
+                }
+              ]
+            },
+            "method": "POST",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n  \"title\": \"Website Redesign\",\r\n  \"description\": \"Overhaul the company website frontend and backend.\",\r\n  \"status\": \"active\"\r\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "http://localhost:3000/api/projects",
+              "protocol": "http",
+              "host": [
+                "localhost"
+              ],
+              "port": "3000",
+              "path": [
+                "api",
+                "projects"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Get Projects",
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          },
+          "request": {
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjI3YmRhY2E3LWRlMDUtNGQ1Ni04YjQ0LWU3MWJhMDNjMTI1NiIsImVtYWlsIjoiYXpteWZhaGRAZ21haWwuY29tIiwicm9sZSI6ImFkbWluIiwiaWF0IjoxNzgyMzEyNDE4LCJleHAiOjE3ODIzOTg4MTh9.8--q_lpgTEL-m2cadV9ZZjKxuP_qj8b9-nQKOMp443s",
+                  "type": "string"
+                }
+              ]
+            },
+            "method": "GET",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n  \"title\": \"Website Redesign\",\r\n  \"description\": \"Overhaul the company website frontend and backend.\",\r\n  \"status\": \"active\"\r\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "http://localhost:3000/api/projects",
+              "protocol": "http",
+              "host": [
+                "localhost"
+              ],
+              "port": "3000",
+              "path": [
+                "api",
+                "projects"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Get ProjectsById",
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          },
+          "request": {
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjI3YmRhY2E3LWRlMDUtNGQ1Ni04YjQ0LWU3MWJhMDNjMTI1NiIsImVtYWlsIjoiYXpteWZhaGRAZ21haWwuY29tIiwicm9sZSI6ImFkbWluIiwiaWF0IjoxNzgyMzEyNDE4LCJleHAiOjE3ODIzOTg4MTh9.8--q_lpgTEL-m2cadV9ZZjKxuP_qj8b9-nQKOMp443s",
+                  "type": "string"
+                }
+              ]
+            },
+            "method": "GET",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n  \"title\": \"Website Redesign\",\r\n  \"description\": \"Overhaul the company website frontend and backend.\",\r\n  \"status\": \"active\"\r\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "http://localhost:3000/api/projects/8c168af4-2a12-4b20-8896-83fc83ffebc9",
+              "protocol": "http",
+              "host": [
+                "localhost"
+              ],
+              "port": "3000",
+              "path": [
+                "api",
+                "projects",
+                "8c168af4-2a12-4b20-8896-83fc83ffebc9"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "UpdateProject",
+          "request": {
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjI3YmRhY2E3LWRlMDUtNGQ1Ni04YjQ0LWU3MWJhMDNjMTI1NiIsImVtYWlsIjoiYXpteWZhaGRAZ21haWwuY29tIiwicm9sZSI6ImFkbWluIiwiaWF0IjoxNzgyMzEyNDE4LCJleHAiOjE3ODIzOTg4MTh9.8--q_lpgTEL-m2cadV9ZZjKxuP_qj8b9-nQKOMp443s",
+                  "type": "string"
+                }
+              ]
+            },
+            "method": "PUT",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n  \"title\": \"Website \"\r\n\r\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "http://localhost:3000/api/projects/8c168af4-2a12-4b20-8896-83fc83ffebc9",
+              "protocol": "http",
+              "host": [
+                "localhost"
+              ],
+              "port": "3000",
+              "path": [
+                "api",
+                "projects",
+                "8c168af4-2a12-4b20-8896-83fc83ffebc9"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Delete Project",
+          "request": {
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjI3YmRhY2E3LWRlMDUtNGQ1Ni04YjQ0LWU3MWJhMDNjMTI1NiIsImVtYWlsIjoiYXpteWZhaGRAZ21haWwuY29tIiwicm9sZSI6ImFkbWluIiwiaWF0IjoxNzgyMzEyNDE4LCJleHAiOjE3ODIzOTg4MTh9.8--q_lpgTEL-m2cadV9ZZjKxuP_qj8b9-nQKOMp443s",
+                  "type": "string"
+                }
+              ]
+            },
+            "method": "DELETE",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n  \"title\": \"Website \"\r\n\r\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "http://localhost:3000/api/projects/8c168af4-2a12-4b20-8896-83fc83ffebc9",
+              "protocol": "http",
+              "host": [
+                "localhost"
+              ],
+              "port": "3000",
+              "path": [
+                "api",
+                "projects",
+                "8c168af4-2a12-4b20-8896-83fc83ffebc9"
+              ]
+            }
+          },
+          "response": []
+        }
+      ]
+    },
+    {
+      "name": "Tasks",
+      "item": [
+        {
+          "name": "Create Task",
+          "request": {
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjI3YmRhY2E3LWRlMDUtNGQ1Ni04YjQ0LWU3MWJhMDNjMTI1NiIsImVtYWlsIjoiYXpteWZhaGRAZ21haWwuY29tIiwicm9sZSI6ImFkbWluIiwiaWF0IjoxNzgyMzEyNDE4LCJleHAiOjE3ODIzOTg4MTh9.8--q_lpgTEL-m2cadV9ZZjKxuP_qj8b9-nQKOMp443s",
+                  "type": "string"
+                }
+              ]
+            },
+            "method": "POST",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n  \"title\": \"Website Redesign\",\r\n  \"description\": \"Overhaul the company website frontend and backend.\",\r\n  \"status\": \"active\"\r\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "http://localhost:3000/api/projects",
+              "protocol": "http",
+              "host": [
+                "localhost"
+              ],
+              "port": "3000",
+              "path": [
+                "api",
+                "projects"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Get Projects Tasks",
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          },
+          "request": {
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjI3YmRhY2E3LWRlMDUtNGQ1Ni04YjQ0LWU3MWJhMDNjMTI1NiIsImVtYWlsIjoiYXpteWZhaGRAZ21haWwuY29tIiwicm9sZSI6ImFkbWluIiwiaWF0IjoxNzgyMzEyNDE4LCJleHAiOjE3ODIzOTg4MTh9.8--q_lpgTEL-m2cadV9ZZjKxuP_qj8b9-nQKOMp443s",
+                  "type": "string"
+                }
+              ]
+            },
+            "method": "GET",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n  \"title\": \"Website Redesign\",\r\n  \"description\": \"Overhaul the company website frontend and backend.\",\r\n  \"status\": \"active\"\r\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "http://localhost:3000/api/projects/6d10df59-7b9a-4b03-bf52-ffa0bebac228/tasks",
+              "protocol": "http",
+              "host": [
+                "localhost"
+              ],
+              "port": "3000",
+              "path": [
+                "api",
+                "projects",
+                "6d10df59-7b9a-4b03-bf52-ffa0bebac228",
+                "tasks"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Get Project Task ById",
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          },
+          "request": {
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjI3YmRhY2E3LWRlMDUtNGQ1Ni04YjQ0LWU3MWJhMDNjMTI1NiIsImVtYWlsIjoiYXpteWZhaGRAZ21haWwuY29tIiwicm9sZSI6ImFkbWluIiwiaWF0IjoxNzgyMzEyNDE4LCJleHAiOjE3ODIzOTg4MTh9.8--q_lpgTEL-m2cadV9ZZjKxuP_qj8b9-nQKOMp443s",
+                  "type": "string"
+                }
+              ]
+            },
+            "method": "GET",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n  \"title\": \"Website Redesign\",\r\n  \"description\": \"Overhaul the company website frontend and backend.\",\r\n  \"status\": \"active\"\r\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "http://localhost:3000/api/projects/6d10df59-7b9a-4b03-bf52-ffa0bebac228/tasks/8ee0ce4e-4717-4f44-97df-f355bac637fc",
+              "protocol": "http",
+              "host": [
+                "localhost"
+              ],
+              "port": "3000",
+              "path": [
+                "api",
+                "projects",
+                "6d10df59-7b9a-4b03-bf52-ffa0bebac228",
+                "tasks",
+                "8ee0ce4e-4717-4f44-97df-f355bac637fc"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "UpdateProject Task",
+          "request": {
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjI3YmRhY2E3LWRlMDUtNGQ1Ni04YjQ0LWU3MWJhMDNjMTI1NiIsImVtYWlsIjoiYXpteWZhaGRAZ21haWwuY29tIiwicm9sZSI6ImFkbWluIiwiaWF0IjoxNzgyMzEyNDE4LCJleHAiOjE3ODIzOTg4MTh9.8--q_lpgTEL-m2cadV9ZZjKxuP_qj8b9-nQKOMp443s",
+                  "type": "string"
+                }
+              ]
+            },
+            "method": "PUT",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n    \"title\": \"Fix Login \"\r\n\r\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "http://localhost:3000/api/projects/6d10df59-7b9a-4b03-bf52-ffa0bebac228/tasks/8ee0ce4e-4717-4f44-97df-f355bac637fc",
+              "protocol": "http",
+              "host": [
+                "localhost"
+              ],
+              "port": "3000",
+              "path": [
+                "api",
+                "projects",
+                "6d10df59-7b9a-4b03-bf52-ffa0bebac228",
+                "tasks",
+                "8ee0ce4e-4717-4f44-97df-f355bac637fc"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Delete Project task",
+          "request": {
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjI3YmRhY2E3LWRlMDUtNGQ1Ni04YjQ0LWU3MWJhMDNjMTI1NiIsImVtYWlsIjoiYXpteWZhaGRAZ21haWwuY29tIiwicm9sZSI6ImFkbWluIiwiaWF0IjoxNzgyMzEyNDE4LCJleHAiOjE3ODIzOTg4MTh9.8--q_lpgTEL-m2cadV9ZZjKxuP_qj8b9-nQKOMp443s",
+                  "type": "string"
+                }
+              ]
+            },
+            "method": "DELETE",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n  \"title\": \"Website \"\r\n\r\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "http://localhost:3000/api/projects/6d10df59-7b9a-4b03-bf52-ffa0bebac228/tasks/8ee0ce4e-4717-4f44-97df-f355bac637fc",
+              "protocol": "http",
+              "host": [
+                "localhost"
+              ],
+              "port": "3000",
+              "path": [
+                "api",
+                "projects",
+                "6d10df59-7b9a-4b03-bf52-ffa0bebac228",
+                "tasks",
+                "8ee0ce4e-4717-4f44-97df-f355bac637fc"
+              ]
+            }
+          },
+          "response": []
+        }
+      ]
+    }
+  ]
+}

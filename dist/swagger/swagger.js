@@ -32,7 +32,6 @@ const options = {
     },
     apis: [
         './src/routes/*.ts',
-        './src/routes/*.js',
         './dist/routes/*.js',
     ], // Scan routes for JSDoc annotations
 };

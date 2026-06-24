@@ -3,23 +3,12 @@ import { AuthenticatedRequest } from '../middleware/auth.middleware';
 import { asyncHandler } from '../middleware/async.middleware';
 import { ProjectService } from '../services/project.service';
 import { ApiError } from '../utils/ApiError';
+import { parsePagination, canAccess } from '../utils/controllerHelpers';
 
-// ─── Helpers ─────────────────────────────────────────────────────────────────
 
-const parsePagination = (query: any) => {
-  const page = Math.max(1, parseInt(query.page) || 1);
-  const limit = Math.min(100, Math.max(1, parseInt(query.limit) || 10));
-  const offset = (page - 1) * limit;
-  const sortBy = query.sortBy || 'createdAt';
-  const sortOrder: 'ASC' | 'DESC' = query.sortOrder === 'ASC' ? 'ASC' : 'DESC';
-  return { page, limit, offset, sortBy, sortOrder };
-};
-
-const canAccess = (ownerId: string, userId: string, role: string): boolean =>
-  role === 'admin' || ownerId === userId;
-
-// ─── Controllers ─────────────────────────────────────────────────────────────
-
+// @desc Create a new project
+// @route post /api/projects
+// @acces private
 export const createProject = asyncHandler(async (req: AuthenticatedRequest, res: Response): Promise<void> => {
   const { title, description, status } = req.body;
   const ownerId = req.user!.id;
@@ -29,6 +18,9 @@ export const createProject = asyncHandler(async (req: AuthenticatedRequest, res:
   res.status(201).json({ message: 'Project created successfully', project });
 });
 
+// @desc Get all projects for the authenticated user
+// @route get /api/projects
+// @acces private
 export const getProjects = asyncHandler(async (req: AuthenticatedRequest, res: Response): Promise<void> => {
   const { page, limit, offset, sortBy, sortOrder } = parsePagination(req.query);
   const { id: userId, role } = req.user!;
@@ -48,6 +40,9 @@ export const getProjects = asyncHandler(async (req: AuthenticatedRequest, res: R
   });
 });
 
+// @desc Get a single project by ID
+// @route get /api/projects/:id
+// @acces private
 export const getProjectById = asyncHandler(async (req: AuthenticatedRequest, res: Response): Promise<void> => {
   const id = req.params.id as string;
   const { id: userId, role } = req.user!;
@@ -62,6 +57,9 @@ export const getProjectById = asyncHandler(async (req: AuthenticatedRequest, res
   res.status(200).json({ project });
 });
 
+// @desc Update project details
+// @route put /api/projects/:id
+// @acces private
 export const updateProject = asyncHandler(async (req: AuthenticatedRequest, res: Response): Promise<void> => {
   const id = req.params.id as string;
   const { id: userId, role } = req.user!;
@@ -78,6 +76,9 @@ export const updateProject = asyncHandler(async (req: AuthenticatedRequest, res:
   res.status(200).json({ message: 'Project updated successfully', project: updated });
 });
 
+// @desc Delete a project
+// @route delete /api/projects/:id
+// @acces private
 export const deleteProject = asyncHandler(async (req: AuthenticatedRequest, res: Response): Promise<void> => {
   const id = req.params.id as string;
   const { id: userId, role } = req.user!;
