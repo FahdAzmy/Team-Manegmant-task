@@ -1,5 +1,5 @@
 import { Router } from 'express';
-import { register, login, getMe } from '../controllers/auth.controller';
+import { register, login, getMe, refresh, logout } from '../controllers/auth.controller';
 import { authenticateJWT } from '../middleware/auth.middleware';
 import { validate } from '../middleware/validation.middleware';
 import { registerSchema, loginSchema } from '../validation/auth.validation';
@@ -18,10 +18,7 @@ const router = Router();
  *         application/json:
  *           schema:
  *             type: object
- *             required:
- *               - name
- *               - email
- *               - password
+ *             required: [name, email, password]
  *             properties:
  *               name:
  *                 type: string
@@ -36,14 +33,13 @@ const router = Router();
  *                 example: securePassword123
  *               role:
  *                 type: string
+ *                 enum: [admin, member]
  *                 example: member
  *     responses:
  *       201:
- *         description: User registered successfully
+ *         description: User registered successfully, refresh token set in HTTP-only cookie
  *       400:
  *         description: Bad request or user already exists
- *       500:
- *         description: Internal server error
  */
 router.post('/register', validate(registerSchema), register);
 
@@ -59,9 +55,7 @@ router.post('/register', validate(registerSchema), register);
  *         application/json:
  *           schema:
  *             type: object
- *             required:
- *               - email
- *               - password
+ *             required: [email, password]
  *             properties:
  *               email:
  *                 type: string
@@ -73,13 +67,43 @@ router.post('/register', validate(registerSchema), register);
  *                 example: securePassword123
  *     responses:
  *       200:
- *         description: Login successful
+ *         description: Login successful, refresh token set in HTTP-only cookie
  *       401:
  *         description: Invalid credentials
- *       500:
- *         description: Internal server error
  */
 router.post('/login', validate(loginSchema), login);
+
+/**
+ * @openapi
+ * /api/auth/refresh:
+ *   post:
+ *     summary: Get new access token using refresh token stored in cookie
+ *     tags: [Authentication]
+ *     responses:
+ *       200:
+ *         description: Returns new access token; rotates refresh token cookie
+ *       401:
+ *         description: Refresh token cookie not found
+ *       403:
+ *         description: Invalid or expired refresh token
+ */
+router.post('/refresh', refresh);
+
+/**
+ * @openapi
+ * /api/auth/logout:
+ *   post:
+ *     summary: Logout and clear refresh token cookie
+ *     tags: [Authentication]
+ *     security:
+ *       - bearerAuth: []
+ *     responses:
+ *       200:
+ *         description: Logout successful, cookie cleared
+ *       401:
+ *         description: Unauthorized
+ */
+router.post('/logout', authenticateJWT, logout);
 
 /**
  * @openapi
@@ -94,10 +118,6 @@ router.post('/login', validate(loginSchema), login);
  *         description: User profile retrieved successfully
  *       401:
  *         description: Unauthorized
- *       403:
- *         description: Invalid/expired token
- *       500:
- *         description: Internal server error
  */
 router.get('/me', authenticateJWT, getMe);
 

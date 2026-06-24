@@ -8,20 +8,22 @@ export interface UserAttributes {
   email: string;
   password?: string;
   role: string;
+  refreshToken?: string | null;
   createdAt?: Date;
   updatedAt?: Date;
 }
 
-export interface UserCreationAttributes extends Optional<UserAttributes, 'id' | 'role'> {}
+export interface UserCreationAttributes extends Optional<UserAttributes, 'id' | 'role' | 'refreshToken'> {}
 
 export class User extends Model<UserAttributes, UserCreationAttributes> implements UserAttributes {
-  public id!: string;
-  public name!: string;
-  public email!: string;
-  public password!: string;
-  public role!: string;
-  public readonly createdAt!: Date;
-  public readonly updatedAt!: Date;
+  declare id: string;
+  declare name: string;
+  declare email: string;
+  declare password: string;
+  declare role: string;
+  declare refreshToken: string | null;
+  declare readonly createdAt: Date;
+  declare readonly updatedAt: Date;
 
   // Custom method to validate password
   public async validatePassword(password: string): Promise<boolean> {
@@ -53,9 +55,13 @@ User.init(
       allowNull: false,
     },
     role: {
-      type: DataTypes.STRING,
+      type: DataTypes.ENUM('admin', 'member'),
       allowNull: false,
-      defaultValue: 'member', // e.g., admin, manager, member
+      defaultValue: 'member',
+    },
+    refreshToken: {
+      type: DataTypes.TEXT,
+      allowNull: true,
     },
   },
   {
