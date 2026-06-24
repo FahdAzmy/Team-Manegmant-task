@@ -1,8 +1,12 @@
-import { sequelize } from "../config/database";
-import { User } from "./user.model";
+﻿import { sequelize } from '../config/database';
+import { User } from './user.model';
+import { Project } from './project.model';
+import { Task } from './task.model';
 
-// Place any associations here when new models are introduced
-// For example:
-// User.hasMany(Project, { foreignKey: 'ownerId' });
+User.hasMany(Project, { foreignKey: 'ownerId', as: 'projects', onDelete: 'CASCADE' });
+Project.belongsTo(User, { foreignKey: 'ownerId', as: 'owner' });
 
-export { sequelize, User };
+Project.hasMany(Task, { foreignKey: 'projectId', as: 'tasks', onDelete: 'CASCADE' });
+Task.belongsTo(Project, { foreignKey: 'projectId', as: 'project' });
+
+export { sequelize, User, Project, Task };
