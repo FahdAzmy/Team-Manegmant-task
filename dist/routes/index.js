@@ -5,9 +5,12 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 Object.defineProperty(exports, "__esModule", { value: true });
 const express_1 = require("express");
 const auth_routes_1 = __importDefault(require("./auth.routes"));
+const project_routes_1 = __importDefault(require("./project.routes"));
+const task_routes_1 = __importDefault(require("./task.routes"));
 const router = (0, express_1.Router)();
-// Mount sub-routers
 router.use('/auth', auth_routes_1.default);
+router.use('/projects', project_routes_1.default);
+router.use('/projects/:projectId/tasks', task_routes_1.default);
 // Health check endpoint
 /**
  * @openapi

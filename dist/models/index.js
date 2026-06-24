@@ -1,7 +1,15 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.User = exports.sequelize = void 0;
+exports.Task = exports.Project = exports.User = exports.sequelize = void 0;
 const database_1 = require("../config/database");
 Object.defineProperty(exports, "sequelize", { enumerable: true, get: function () { return database_1.sequelize; } });
 const user_model_1 = require("./user.model");
 Object.defineProperty(exports, "User", { enumerable: true, get: function () { return user_model_1.User; } });
+const project_model_1 = require("./project.model");
+Object.defineProperty(exports, "Project", { enumerable: true, get: function () { return project_model_1.Project; } });
+const task_model_1 = require("./task.model");
+Object.defineProperty(exports, "Task", { enumerable: true, get: function () { return task_model_1.Task; } });
+user_model_1.User.hasMany(project_model_1.Project, { foreignKey: 'ownerId', as: 'projects', onDelete: 'CASCADE' });
+project_model_1.Project.belongsTo(user_model_1.User, { foreignKey: 'ownerId', as: 'owner' });
+project_model_1.Project.hasMany(task_model_1.Task, { foreignKey: 'projectId', as: 'tasks', onDelete: 'CASCADE' });
+task_model_1.Task.belongsTo(project_model_1.Project, { foreignKey: 'projectId', as: 'project' });

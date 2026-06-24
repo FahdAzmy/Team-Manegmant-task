@@ -13,6 +13,33 @@ services:
       - "5434:5432"
     volumes:
       - pgdata:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U postgres"]
+      interval: 5s
+      timeout: 5s
+      retries: 5
+
+  app:
+    build: .
+    container_name: team_management_app
+    restart: always
+    ports:
+      - "3000:3000"
+    environment:
+      NODE_ENV: production
+      PORT: 3000
+      DB_HOST: postgres
+      DB_PORT: 5432
+      DB_NAME: team_management
+      DB_USER: postgres
+      DB_PASSWORD: postgres
+      JWT_SECRET: change-this-to-a-strong-secret-in-production
+      JWT_EXPIRES_IN: 15m
+      JWT_REFRESH_SECRET: change-this-refresh-secret-in-production
+      JWT_REFRESH_EXPIRES_IN: 7d
+    depends_on:
+      postgres:
+        condition: service_healthy
 
 volumes:
   pgdata:
