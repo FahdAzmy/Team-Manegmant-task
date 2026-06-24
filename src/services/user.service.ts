@@ -9,10 +9,10 @@ export class UserService {
   }
 
   /**
-   * Find a user by primary key ID
+   * Find a user by ID
    */
   public static async getUserById(id: string): Promise<User | null> {
-    return User.findByPk(id);
+    return User.findOne({ where: { id } });
   }
 
   /**
@@ -20,5 +20,12 @@ export class UserService {
    */
   public static async createUser(userData: UserCreationAttributes): Promise<User> {
     return User.create(userData);
+  }
+
+  /**
+   * Update the user's refresh token
+   */
+  public static async updateRefreshToken(userId: string, refreshToken: string | null): Promise<void> {
+    await User.update({ refreshToken }, { where: { id: userId } });
   }
 }

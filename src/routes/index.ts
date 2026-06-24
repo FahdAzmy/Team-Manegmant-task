@@ -1,10 +1,10 @@
-import { Router } from 'express';
-import authRoutes from './auth.routes';
+import { Router } from "express";
+import authRoutes from "./auth.routes";
 
 const router = Router();
 
 // Mount sub-routers
-router.use('/auth', authRoutes);
+router.use("/auth", authRoutes);
 
 // Health check endpoint
 /**
@@ -17,8 +17,8 @@ router.use('/auth', authRoutes);
  *       200:
  *         description: Server is healthy
  */
-router.get('/health', (req, res) => {
-  res.status(200).json({ status: 'OK', timestamp: new Date() });
+router.get("/health", (req, res) => {
+  res.status(200).json({ status: "OK", timestamp: new Date() });
 });
 
 export default router;
